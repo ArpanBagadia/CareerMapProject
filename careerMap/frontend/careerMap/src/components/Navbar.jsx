@@ -13,7 +13,7 @@ const Navbar = () => {
         <Link to="/" className="hover:text-blue-600">Home</Link>
         <Link to="/features" className="hover:text-blue-600">Features</Link>
         
-        <Link to="/about" className="hover:text-blue-600">About</Link>
+      
       </div>
 
       {/* Auth Buttons */}
