@@ -3,28 +3,36 @@ import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
-  console.log(user)
 
   return (
-    <nav className="flex items-center justify-between px-6 py-4 bg-white shadow-md">
-      <Link to="/" className="text-2xl font-bold text-blue-600">
-        CareerMap
+    <nav className="flex items-center justify-between px-8 py-4 bg-[#e9fbff] border-b">
+      {/* Logo Section */}
+      <Link to="/" className="flex items-center space-x-2">
+        <img
+          src="/image.png"
+          alt="CareerMap Logo"
+          className="h-10 w-10 object-contain"
+        />
+        <span className="text-xl font-bold text-gray-900">CareerMap</span>
       </Link>
 
+      {/* Right Section */}
       <div className="flex items-center space-x-4">
         {user ? (
           <>
             <div className="flex items-center space-x-2">
               <img
-                src={user.user.imageUrl || "/default-avatar.png"} // Default image if no photo is provided
+                src={user.user.imageUrl || "/default-avatar.png"}
                 alt="User Avatar"
-                className="w-10 h-10 rounded-full object-cover"
+                className="w-9 h-9 rounded-full object-cover border border-gray-300"
               />
-              <span className="text-gray-800 font-semibold">{user.user.name}</span>
+              <span className="text-sm font-medium text-gray-800">
+                {user.user.name}
+              </span>
             </div>
             <button
               onClick={logout}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              className="px-4 py-2 rounded-full bg-red-500 text-white text-sm hover:bg-red-600 transition"
             >
               Log Out
             </button>
@@ -32,13 +40,13 @@ const Navbar = () => {
         ) : (
           <>
             <Link to="/login">
-              <button className="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700">
-                Log In
+              <button className="text-sm text-gray-700 hover:text-gray-900 transition">
+                Login
               </button>
             </Link>
             <Link to="/signup">
-              <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                Sign Up
+              <button className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm hover:bg-blue-700 transition">
+                Create Account
               </button>
             </Link>
           </>

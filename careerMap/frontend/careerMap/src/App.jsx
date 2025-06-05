@@ -7,16 +7,17 @@ import TutorDashboard from "./pages/tutor/TutorDashboard";
 import CompanyDashboard from "./pages/company/CompanyDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
 
 function App() {
   return (
     <>
       <Navbar />
       <Routes>
+        <Route path="/" element={<Hero/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/select-role" element={<SelectRole />} />
-
         <Route
           path="/student/dashboard"
           element={<ProtectedRoute role="student"><StudentDashboard /></ProtectedRoute>}
