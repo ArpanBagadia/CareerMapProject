@@ -1,53 +1,21 @@
-import React from 'react';
-
-const courses = [
-  {
-    id: 1,
-    title: "Build Text to image SaaS App in React JS",
-    tag: "FULL STACK",
-    subtitle: "Text to Image SAAS App",
-    instructor: "Richard James",
-    rating: 4.5,
-    reviews: 122,
-    price: "$10.99",
-    image: "/course1.png",
-  },
-  {
-    id: 2,
-    title: "Build AI BG Removal SaaS App in React JS",
-    tag: "FULL STACK",
-    subtitle: "AI BG Removal SAAS App",
-    instructor: "Richard James",
-    rating: 4.5,
-    reviews: 122,
-    price: "$10.99",
-    image: "/course2.png",
-  },
-  {
-    id: 3,
-    title: "React Router Complete Course in One Video",
-    tag: "React Router",
-    subtitle: "In Depth",
-    instructor: "Richard James",
-    rating: 4.5,
-    reviews: 122,
-    price: "$10.99",
-    image: "/course3.png",
-  },
-  {
-    id: 4,
-    title: "Build Full Stack E-Commerce App in React JS",
-    tag: "2024",
-    subtitle: "E-Commerce MERN app",
-    instructor: "Richard James",
-    rating: 4.5,
-    reviews: 122,
-    price: "$10.99",
-    image: "/course4.png",
-  },
-];
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Footer from './Footer';
 
 function Hero() {
+  const [course, setCourse] = useState([]);
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/courses?tutorId=684006b1065003e30e28a097')
+      .then((res) => {
+        setCourse(res.data.courses)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [])
+  useEffect(() => {
+    console.log("Updated course data:", course);
+  }, [course]);
   return (
     <div>
       {/* Hero Section */}
@@ -90,15 +58,15 @@ function Hero() {
         </p>
 
         {/* Grid of Cards */}
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {courses.map((course) => (
+        {/* <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {course.map((course) => (
             <div
               key={course.id}
               className="rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition bg-white"
             >
               <div className="relative h-40 w-full bg-gray-100">
                 <img
-                  src={course.image}
+                  src={course.imageUrl}
                   alt={course.title}
                   className="w-full h-full object-cover"
                 />
@@ -119,12 +87,28 @@ function Hero() {
               </div>
             </div>
           ))}
+        </div> */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 p-6">
+          {course.map(course => (
+            <div key={course._id} className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+              <img src={course.imageUrl} alt="Course" className="w-full h-48 object-cover" />
+              <div className="p-5">
+                <h2 className="text-xl font-bold">{course.title}</h2>
+                <p className="text-sm text-gray-500">{course.subtitle}</p>
+                <p className="text-md text-green-600 font-semibold">₹{course.price}</p>
+                <p className="text-xs text-gray-400">{course.level}</p>
+                {/* Optional: preview video */}
+                {/* <video src={course.videoUrl} controls className="w-full mt-2" /> */}
+              </div>
+            </div>
+          ))}
         </div>
 
         <button className="mt-10 px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-100 transition">
           Show all courses
         </button>
       </div>
+      <Footer />
     </div>
   );
 }
