@@ -121,3 +121,13 @@ exports.deleteCourse = async (req, res) => {
         res.status(500).json({ success: false, msg: "Failed to delete course" });
     }
 };
+
+exports.getAllCourses = async (req, res) => {
+  try {
+    const courses = await Course.find()
+    res.status(200).json({ success: true, courses });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, msg: "Failed to fetch courses" });
+  }
+};

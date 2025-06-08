@@ -1,21 +1,8 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Footer from './Footer';
+import StudentDashboard from '../pages/student/StudentDashboard';
 
 function Hero() {
-  const [course, setCourse] = useState([]);
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/courses?tutorId=684006b1065003e30e28a097')
-      .then((res) => {
-        setCourse(res.data.courses)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [])
-  useEffect(() => {
-    console.log("Updated course data:", course);
-  }, [course]);
+
   return (
     <div>
       {/* Hero Section */}
@@ -56,57 +43,7 @@ function Hero() {
           Discover our top-rated courses across various categories. From coding and design to
           business and wellness, our courses are crafted to deliver results.
         </p>
-
-        {/* Grid of Cards */}
-        {/* <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {course.map((course) => (
-            <div
-              key={course.id}
-              className="rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition bg-white"
-            >
-              <div className="relative h-40 w-full bg-gray-100">
-                <img
-                  src={course.imageUrl}
-                  alt={course.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-4 text-left">
-                <p className="text-sm font-semibold text-green-600">{course.tag}</p>
-                <h3 className="text-lg font-bold leading-tight mt-1">
-                  {course.subtitle}
-                </h3>
-                <p className="mt-1 font-medium text-sm">{course.title}</p>
-                <p className="text-sm text-gray-500 mt-1">{course.instructor}</p>
-                <div className="flex items-center gap-1 mt-2">
-                  <span className="text-sm font-medium">{course.rating}</span>
-                  <span className="text-red-500 text-sm">★ ★ ★ ★ ☆</span>
-                  <span className="text-sm text-gray-500">({course.reviews})</span>
-                </div>
-                <p className="mt-2 font-semibold text-black">{course.price}</p>
-              </div>
-            </div>
-          ))}
-        </div> */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 p-6">
-          {course.map(course => (
-            <div key={course._id} className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-              <img src={course.imageUrl} alt="Course" className="w-full h-48 object-cover" />
-              <div className="p-5">
-                <h2 className="text-xl font-bold">{course.title}</h2>
-                <p className="text-sm text-gray-500">{course.subtitle}</p>
-                <p className="text-md text-green-600 font-semibold">₹{course.price}</p>
-                <p className="text-xs text-gray-400">{course.level}</p>
-                {/* Optional: preview video */}
-                {/* <video src={course.videoUrl} controls className="w-full mt-2" /> */}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <button className="mt-10 px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-100 transition">
-          Show all courses
-        </button>
+       <StudentDashboard/>
       </div>
       <Footer />
     </div>

@@ -92,7 +92,7 @@ const Login = () => {
             className="border border-gray-300 rounded px-4 py-2 w-full flex items-center justify-center space-x-2 hover:bg-gray-100"
           >
             <FcGoogle size={20} />
-            <span>Login with Google</span>
+            <span>Continue with Google</span>
           </button>
 
           <div className="text-sm text-center mt-4">

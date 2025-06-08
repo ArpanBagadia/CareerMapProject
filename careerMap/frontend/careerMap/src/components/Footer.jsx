@@ -48,7 +48,7 @@ const Footer = () => {
             {/* Bottom copyright */}
             <hr className="my-6 border-gray-700" />
             <p className="text-center text-sm text-gray-500">
-                © {new Date().getFullYear()} Edemy. All rights reserved.
+                © {new Date().getFullYear()} CareerMap. All rights reserved.
             </p>
         </footer>
     );
