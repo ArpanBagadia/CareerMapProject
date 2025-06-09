@@ -3,7 +3,8 @@ import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
-
+  console.log(user)
+  localStorage.setItem("tutorId",user.user.id)
   return (
     <nav className="flex items-center justify-between px-8 py-4 bg-[#e9fbff] border-b">
       {/* Logo Section */}
@@ -22,8 +23,9 @@ const Navbar = () => {
           <>
             <div className="flex items-center space-x-2">
               <img
-                src={user.user.imageUrl || "/default-avatar.png"}
+                src={user.user.imageUrl}
                 alt="User Avatar"
+                referrerPolicy="no-referrer"
                 className="w-9 h-9 rounded-full object-cover border border-gray-300"
               />
               <span className="text-sm font-medium text-gray-800">
