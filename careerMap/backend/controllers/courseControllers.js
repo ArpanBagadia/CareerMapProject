@@ -98,3 +98,36 @@ exports.updateCourse = async (req, res) => {
         res.status(500).json({ success: false, msg: "Update failed" });
     }
 };
+
+exports.deleteCourse = async (req, res) => {
+    const { id, tutorId } = req.query;
+
+    try {
+        const course = await Course.findOne({ id });
+        if (!course) {
+            return res.status(404).json({ success: false, msg: "Course not found" });
+        }
+
+        if (course.tutorId.toString() !== tutorId.toString()) {
+            return res.status(403).json({ success: false, msg: "Unauthorized access" });
+        }
+
+        await Course.deleteOne(id);
+
+        res.status(200).json({ success: true, msg: "Course deleted successfully" });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, msg: "Failed to delete course" });
+    }
+};
+
+exports.getAllCourses = async (req, res) => {
+  try {
+    const courses = await Course.find()
+    res.status(200).json({ success: true, courses });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, msg: "Failed to fetch courses" });
+  }
+};

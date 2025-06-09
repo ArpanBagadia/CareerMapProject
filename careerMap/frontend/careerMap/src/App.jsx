@@ -8,13 +8,14 @@ import CompanyDashboard from "./pages/company/CompanyDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import TutorCourse from "./pages/tutor/TutorCourse";
 
 function App() {
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Hero/>}/>
+        <Route path="/" element={<Hero />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/select-role" element={<SelectRole />} />
@@ -23,13 +24,17 @@ function App() {
           element={<ProtectedRoute role="student"><StudentDashboard /></ProtectedRoute>}
         />
         <Route
-        path="/tutor/dashboard"
-        element={<ProtectedRoute role="tutor"><TutorDashboard /></ProtectedRoute>}
-      />
-      <Route
-        path="/company/dashboard"
-        element={<ProtectedRoute role="company"><CompanyDashboard /></ProtectedRoute>}
-      />
+          path="/tutor/dashboard"
+          element={<ProtectedRoute role="tutor"><TutorDashboard /></ProtectedRoute>}
+        />
+        <Route
+          path="/tutor/addcourse"
+          element={<ProtectedRoute role="tutor"><TutorCourse /></ProtectedRoute>}
+        />
+        <Route
+          path="/company/dashboard"
+          element={<ProtectedRoute role="company"><CompanyDashboard /></ProtectedRoute>}
+        />
       </Routes>
     </>
   );

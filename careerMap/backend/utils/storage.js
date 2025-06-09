@@ -14,6 +14,6 @@ const storage = new CloudinaryStorage({
   },
 });
 
-const upload = multer({ storage }); // ✅ Wrap storage with Multer
+const upload = multer({ storage }); 
 
-module.exports = upload; // ✅ Now it's the Multer instance, not just storage
+module.exports = upload;
