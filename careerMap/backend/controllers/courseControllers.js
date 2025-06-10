@@ -131,3 +131,14 @@ exports.getAllCourses = async (req, res) => {
     res.status(500).json({ success: false, msg: "Failed to fetch courses" });
   }
 };
+
+const fetchCourses = async () => {
+  try {
+    const tutorId = localStorage.getItem("tutorId");
+    const res = await axios.get(`http://localhost:5000/api/tutor-courses?tutorId=${tutorId}`);
+    setCourses(res.data.courses);
+  } catch (error) {
+    toast.error("Failed to fetch courses");
+  }
+};
+

@@ -39,7 +39,6 @@ function TutorCourse() {
 
     try {
       const tutorId = localStorage.getItem('tutorId');
-      console.log(tutorId)
       const data = new FormData();
       data.append('tutorId', tutorId);
       data.append('title', formData.title);
@@ -59,6 +58,20 @@ function TutorCourse() {
 
       toast.success("Course added successfully!");
       console.log(res.data);
+
+      // ✅ Reset form fields
+      setFormData({
+        title: '',
+        subtitle: '',
+        category: '',
+        level: '',
+        price: '',
+        description: ''
+      });
+      setImage(null);
+      setVideo(null);
+      document.getElementById('imageInput').value = '';
+      document.getElementById('videoInput').value = '';
     } catch (err) {
       toast.error("Error uploading course.");
       console.error(err);
@@ -145,6 +158,7 @@ function TutorCourse() {
               onChange={(e) => setImage(e.target.files[0])}
               className="w-full border p-2 rounded"
               required
+              id="imageInput"
             />
           </div>
 
@@ -156,6 +170,7 @@ function TutorCourse() {
               onChange={(e) => setVideo(e.target.files[0])}
               className="w-full border p-2 rounded"
               required
+              id="videoInput"
             />
           </div>
 

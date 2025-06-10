@@ -3,8 +3,12 @@ import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
-  console.log(user)
-  localStorage.setItem("tutorId",user.user.id)
+
+  // Safe check before accessing user.user.id
+  if (user && user.user && user.user.id) {
+    localStorage.setItem("tutorId", user.user.id);
+  }
+
   return (
     <nav className="flex items-center justify-between px-8 py-4 bg-[#e9fbff] border-b">
       {/* Logo Section */}

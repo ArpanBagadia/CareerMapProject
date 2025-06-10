@@ -9,6 +9,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import TutorCourse from "./pages/tutor/TutorCourse";
+import ShowCourses from "./pages/tutor/ShowCourses";
+
 
 function App() {
   return (
@@ -34,6 +36,10 @@ function App() {
         <Route
           path="/company/dashboard"
           element={<ProtectedRoute role="company"><CompanyDashboard /></ProtectedRoute>}
+        />
+        <Route
+          path="/tutor/showcourses"
+          element={<ProtectedRoute role="tutor"><ShowCourses /></ProtectedRoute>}
         />
       </Routes>
     </>
