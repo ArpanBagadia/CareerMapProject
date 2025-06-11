@@ -17,7 +17,7 @@ const uploadSize = upload.fields([
 router.post("/upload-course", uploadSize, courseUpload)
 router.get("/courses", getTutorCourses)
 router.put("/update-course", uploadSize, updateCourse)
-router.delete('/delete', deleteCourse)
+router.delete('/delete/:id/:tutorId', deleteCourse);
 router.get('/all-courses', getAllCourses);
 
 module.exports = router;

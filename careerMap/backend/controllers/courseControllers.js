@@ -100,45 +100,35 @@ exports.updateCourse = async (req, res) => {
 };
 
 exports.deleteCourse = async (req, res) => {
-    const { id, tutorId } = req.query;
+    const { id, tutorId } = req.params; 
 
     try {
-        const course = await Course.findOne({ id });
+        const course = await Course.findOne({ _id: id });
         if (!course) {
             return res.status(404).json({ success: false, msg: "Course not found" });
         }
 
-        if (course.tutorId.toString() !== tutorId.toString()) {
+        // Add proper null checks
+        if (!course.tutorId || !tutorId || course.tutorId.toString() !== tutorId.toString()) {
             return res.status(403).json({ success: false, msg: "Unauthorized access" });
         }
 
-        await Course.deleteOne(id);
+        await Course.deleteOne({ _id: id });
 
-        res.status(200).json({ success: true, msg: "Course deleted successfully" });
+        return res.status(200).json({ success: true, msg: "Course deleted successfully" });
 
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ success: false, msg: "Failed to delete course" });
+        console.error("Delete error:", err);
+        return res.status(500).json({ success: false, msg: "Failed to delete course" });
     }
 };
 
 exports.getAllCourses = async (req, res) => {
-  try {
-    const courses = await Course.find()
-    res.status(200).json({ success: true, courses });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, msg: "Failed to fetch courses" });
-  }
+    try {
+        const courses = await Course.find()
+        res.status(200).json({ success: true, courses });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, msg: "Failed to fetch courses" });
+    }
 };
-
-const fetchCourses = async () => {
-  try {
-    const tutorId = localStorage.getItem("tutorId");
-    const res = await axios.get(`http://localhost:5000/api/tutor-courses?tutorId=${tutorId}`);
-    setCourses(res.data.courses);
-  } catch (error) {
-    toast.error("Failed to fetch courses");
-  }
-};
-

@@ -1,9 +1,10 @@
-let mongoose = require('mongoose')
+const mongoose=require("mongoose")
 
-mongoose.connect('mongodb+srv://yashimscit:r9Zhr63BbgcDGjNQ@yash.09syy.mongodb.net/?retryWrites=true&w=majority&appName=Yash')
+mongoose.connect('mongodb+srv://arpanbagadia:5O2vxwJVlwERdW6K@arpan.4cy9l.mongodb.net/?retryWrites=true&w=majority&appName=Arpan')
+
 .then(()=>{
-    console.log("Database connected")
+    console.log("database connect successfully")
 })
 .catch((err)=>{
-    console.log("Error in connected",err)
+    console.log(err)
 })

@@ -9,7 +9,7 @@ const ShowCourses = () => {
   const fetchCourses = async () => {
     try {
       const tutorId = localStorage.getItem("tutorId");
-      const res = await axios.get(`http://localhost:5000/api/courses`);
+      const res = await axios.get(`http://localhost:5000/api/courses?tutorId=${tutorId}`);
       setCourses(res.data.courses);
     } catch (error) {
       toast.error("Failed to fetch courses");
@@ -23,13 +23,22 @@ const ShowCourses = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this course?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/delete`);
-      toast.success("Course deleted");
+      const tutorId = localStorage.getItem("tutorId");
+      console.log("Deleting course:", id, "with tutor:", tutorId);
+      await axios.delete(`http://localhost:5000/api/delete/${id}/${tutorId}`);
+
+      toast.success("Course deleted successfully");
       fetchCourses();
     } catch (error) {
-      toast.error("Failed to delete course");
+      console.error("Delete error details:", error.response?.data || error);
+      toast.error(error.response?.data?.msg || "Failed to delete course");
     }
   };
+
+  const handleEdit=async(id)=>{
+    console.log(id)
+    
+  }
 
   return (
     <div className="flex">
@@ -58,7 +67,7 @@ const ShowCourses = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 flex space-x-2">
-                    <button className="text-blue-600 hover:underline">Edit</button>
+                    <button onClick={() => handleEdit(course._id)} className="text-blue-600 hover:underline">Edit</button>
                     <button onClick={() => handleDelete(course._id)} className="text-red-600 hover:underline">Delete</button>
                   </td>
                 </tr>
