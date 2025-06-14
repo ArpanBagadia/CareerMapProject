@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Sidebar from "../../components/Sidebar";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const ShowCourses = () => {
+  let navigate = useNavigate();
   const [courses, setCourses] = useState([]);
 
   const fetchCourses = async () => {
@@ -35,9 +37,8 @@ const ShowCourses = () => {
     }
   };
 
-  const handleEdit=async(id)=>{
-    console.log(id)
-    
+  const handleEdit = (id) => {
+    navigate(`/tutor/edit-course/${id}`);
   }
 
   return (

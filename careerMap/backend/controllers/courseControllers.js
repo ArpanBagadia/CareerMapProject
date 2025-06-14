@@ -57,7 +57,7 @@ exports.getTutorCourses = async (req, res) => {
 }
 
 exports.updateCourse = async (req, res) => {
-    const { id } = req.query;
+    const { id } = req.params;
     const {
         title, subtitle, category, description,
         level, price, tutorId
@@ -100,7 +100,7 @@ exports.updateCourse = async (req, res) => {
 };
 
 exports.deleteCourse = async (req, res) => {
-    const { id, tutorId } = req.params; 
+    const { id, tutorId } = req.params;
 
     try {
         const course = await Course.findOne({ _id: id });
@@ -132,3 +132,18 @@ exports.getAllCourses = async (req, res) => {
         res.status(500).json({ success: false, msg: "Failed to fetch courses" });
     }
 };
+
+exports.getCourseById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const course = await Course.findById(id)
+        if (!course) {
+            return res.status(404).json({ success: false, msg: "Course not found" });
+        }
+        res.status(200).json({ success: true, course })
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, msg: "Failed to fetch course" })
+    }
+}

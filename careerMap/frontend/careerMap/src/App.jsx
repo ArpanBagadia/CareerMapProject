@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import TutorCourse from "./pages/tutor/TutorCourse";
 import ShowCourses from "./pages/tutor/ShowCourses";
+import EditCourses from "./pages/tutor/EditCourses";
 
 
 function App() {
@@ -34,12 +35,16 @@ function App() {
           element={<ProtectedRoute role="tutor"><TutorCourse /></ProtectedRoute>}
         />
         <Route
-          path="/company/dashboard"
-          element={<ProtectedRoute role="company"><CompanyDashboard /></ProtectedRoute>}
-        />
-        <Route
           path="/tutor/showcourses"
           element={<ProtectedRoute role="tutor"><ShowCourses /></ProtectedRoute>}
+        />
+        <Route
+          path="/tutor/edit-course/:courseId"
+          element={<ProtectedRoute role="tutor"><EditCourses /></ProtectedRoute>}
+        />
+        <Route
+          path="/company/dashboard"
+          element={<ProtectedRoute role="company"><CompanyDashboard /></ProtectedRoute>}
         />
       </Routes>
     </>
