@@ -14,9 +14,9 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    category:{
-        type:String,
-        required:true
+    category: {
+        type: String,
+        required: true
     },
     description: {
         type: String,
@@ -41,6 +41,10 @@ const courseSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    status: {
+        type: Boolean,
+        default: true
     }
 })
 

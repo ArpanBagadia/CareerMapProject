@@ -125,7 +125,7 @@ exports.deleteCourse = async (req, res) => {
 
 exports.getAllCourses = async (req, res) => {
     try {
-        const courses = await Course.find()
+        const courses = await Course.find({ status: true })
         res.status(200).json({ success: true, courses });
     } catch (error) {
         console.error(error);
@@ -145,5 +145,22 @@ exports.getCourseById = async (req, res) => {
     catch (error) {
         console.error(error);
         res.status(500).json({ success: false, msg: "Failed to fetch course" })
+    }
+}
+
+exports.updateCourseStatus = async (req, res) => {
+    try {
+        const course = await Course.findById(req.params.id);
+        if (!course) {
+            return res.status(404).json({ success: false, msg: "Course not found" });
+        }
+        if (req.body.status !== undefined) {
+            course.status = req.body.status;
+        }
+        await course.save();
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, msg: "Update failed" });
     }
 }
