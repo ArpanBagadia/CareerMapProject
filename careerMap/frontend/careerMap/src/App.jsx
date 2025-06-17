@@ -11,7 +11,7 @@ import Hero from "./components/Hero";
 import TutorCourse from "./pages/tutor/TutorCourse";
 import ShowCourses from "./pages/tutor/ShowCourses";
 import EditCourses from "./pages/tutor/EditCourses";
-
+import CourseDetails from "./pages/student/CourseDetails"
 
 function App() {
   return (
@@ -26,6 +26,7 @@ function App() {
           path="/student/dashboard"
           element={<ProtectedRoute role="student"><StudentDashboard /></ProtectedRoute>}
         />
+        <Route path="/student/course/:id" element={<CourseDetails />} />
         <Route
           path="/tutor/dashboard"
           element={<ProtectedRoute role="tutor"><TutorDashboard /></ProtectedRoute>}
