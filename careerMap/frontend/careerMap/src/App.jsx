@@ -12,6 +12,7 @@ import TutorCourse from "./pages/tutor/TutorCourse";
 import ShowCourses from "./pages/tutor/ShowCourses";
 import EditCourses from "./pages/tutor/EditCourses";
 import CourseDetails from "./pages/student/CourseDetails"
+import StudentCourses from "./pages/student/StudentCourses";
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
           element={<ProtectedRoute role="student"><StudentDashboard /></ProtectedRoute>}
         />
         <Route path="/student/course/:id" element={<CourseDetails />} />
+        <Route path="/student/enrolled" element={<StudentCourses />} />
+        {/* <Route path="/tutor/enrollments" element={<TutorEnrollments />} /> */}
         <Route
           path="/tutor/dashboard"
           element={<ProtectedRoute role="tutor"><TutorDashboard /></ProtectedRoute>}

@@ -1,8 +1,12 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const CourseDetail = () => {
+    const { user } = useAuth();
+    const navigate = useNavigate();
     const { id } = useParams();
     const [course, setCourse] = useState(null);
 
@@ -11,6 +15,30 @@ const CourseDetail = () => {
             .then(res => setCourse(res.data.course))
             .catch(err => console.error("Course fetch error:", err));
     }, [id]);
+
+    const handleEnroll = async () => {
+        if (!user) {
+            alert("Please login first to enroll.");
+            navigate('/login');
+            return;
+        }
+        console.log(user.user.id)
+        try {
+            const response = await axios.post('http://localhost:5000/api/enroll', {
+                studentId: user.user.id,
+                courseId: course?._id,
+                tutorId: course?.tutorId, // make sure `course.tutorId` is available
+            });
+            if (!user || !course || !course._id || !course.tutorId) {
+                alert("Missing required data to enroll. Please try again later.");
+                return;
+            }
+            alert(response.data.msg);
+            navigate('/student/enrolled'); // or wherever you show enrolled courses
+        } catch (err) {
+            alert(err.response?.data?.msg || "Something went wrong");
+        }
+    };
 
     const calculateTotalDuration = (structure) => {
         let totalMinutes = 0;
@@ -82,9 +110,13 @@ const CourseDetail = () => {
                     <p className="mt-2">
                         ⭐ {course.rating || 5} | 🕒 {course.createdAt} | 📚 {course.level} lessons
                     </p>
-                    <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+                    <button
+                        onClick={handleEnroll}
+                        className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+                    >
                         Enroll Now
                     </button>
+
 
                     <div className="mt-6">
                         <h4 className="font-semibold text-md mb-1">What's in the course?</h4>

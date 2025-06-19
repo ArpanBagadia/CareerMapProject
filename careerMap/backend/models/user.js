@@ -8,5 +8,5 @@ const userSchema = new mongoose.Schema({
   imageUrl: String,
   role: { type: String, enum: ["student", "tutor", "company"], default: null },
 });
-
+  
 module.exports = mongoose.model("User", userSchema);
