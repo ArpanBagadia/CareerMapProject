@@ -13,6 +13,9 @@ import ShowCourses from "./pages/tutor/ShowCourses";
 import EditCourses from "./pages/tutor/EditCourses";
 import CourseDetails from "./pages/student/CourseDetails"
 import StudentCourses from "./pages/student/StudentCourses";
+import TutorEnrollments from "./pages/tutor/TutorEnrollments";
+import Success from "./pages/Success";
+
 
 function App() {
   return (
@@ -23,13 +26,14 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/select-role" element={<SelectRole />} />
+        <Route path="/success" element={<Success />} />
         <Route
           path="/student/dashboard"
           element={<ProtectedRoute role="student"><StudentDashboard /></ProtectedRoute>}
         />
         <Route path="/student/course/:id" element={<CourseDetails />} />
-        <Route path="/student/enrolled" element={<StudentCourses />} />
-        {/* <Route path="/tutor/enrollments" element={<TutorEnrollments />} /> */}
+        <Route path="/student/enrolled" element={<ProtectedRoute role="student"><StudentCourses /></ProtectedRoute>} />
+        <Route path="/tutor/enrollments" element={<ProtectedRoute role="tutor"><TutorEnrollments /></ProtectedRoute>} />
         <Route
           path="/tutor/dashboard"
           element={<ProtectedRoute role="tutor"><TutorDashboard /></ProtectedRoute>}

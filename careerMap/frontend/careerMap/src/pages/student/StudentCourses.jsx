@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useAuth } from '../../context/AuthContext'; // ✅ CORRECT
+import { useAuth } from '../../context/AuthContext';
 
 const StudentCourses = () => {
-    const { user } = useAuth(); // ✅ use custom hook
+    const { user } = useAuth();
     const [enrollments, setEnrollments] = useState([]);
 
     useEffect(() => {

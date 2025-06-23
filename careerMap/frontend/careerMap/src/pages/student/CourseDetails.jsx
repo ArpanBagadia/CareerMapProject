@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import CheckoutButton from '../CheckoutButton';
 
 const CourseDetail = () => {
     const { user } = useAuth();
@@ -110,14 +111,14 @@ const CourseDetail = () => {
                     <p className="mt-2">
                         ⭐ {course.rating || 5} | 🕒 {course.createdAt} | 📚 {course.level} lessons
                     </p>
-                    <button
+                    {/* <button
                         onClick={handleEnroll}
                         className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
                     >
                         Enroll Now
-                    </button>
+                    </button> */}
 
-
+                    <CheckoutButton  course={course}/>
                     <div className="mt-6">
                         <h4 className="font-semibold text-md mb-1">What's in the course?</h4>
                         <ul className="text-sm text-gray-700 list-disc list-inside">

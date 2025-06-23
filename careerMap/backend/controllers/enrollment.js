@@ -32,3 +32,17 @@ exports.tutorEmrollments = async (req, res) => {
     const enrollments = await Enrollment.find({ tutorId }).populate('studentId courseId');
     res.json(enrollments);
 }
+
+exports.getQualifiedStudents = async (req, res) => {
+    try {
+        const enrollments = await Enrollment.find()
+            .populate('studentId')
+            .populate('courseId');
+        console.log(enrollments)
+        res.json(enrollments);
+    } catch (error) {
+        console.error("Error in getQualifiedStudents:", error);
+        res.status(500).json({ msg: "Server error", error });
+    }
+};
+

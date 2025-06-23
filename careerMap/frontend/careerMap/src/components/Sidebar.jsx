@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, BookOpen,Monitor } from "lucide-react";
+import { LayoutDashboard, BookOpen, Monitor,User } from "lucide-react";
 
 const Sidebar = () => {
     const location = useLocation();
@@ -7,7 +7,8 @@ const Sidebar = () => {
     const menuItems = [
         { name: "Dashboard", path: "/tutor/dashboard", icon: <LayoutDashboard size={18} /> },
         { name: "Add Courses", path: "/tutor/addcourse", icon: <BookOpen size={18} /> },
-        { name: "Show Courses", path: "/tutor/showcourses", icon: <Monitor size={18} /> }
+        { name: "Show Courses", path: "/tutor/showcourses", icon: <Monitor size={18} /> },
+        { name: "Show enroll student", path: "/tutor/enrollments", icon: <User size={18} /> },
     ];
 
     return (
@@ -20,8 +21,8 @@ const Sidebar = () => {
                         key={item.path}
                         to={item.path}
                         className={`flex items-center px-4 py-2 rounded-lg transition ${location.pathname === item.path
-                                ? "bg-blue-100 text-blue-600 font-semibold"
-                                : "text-gray-700 hover:bg-gray-100"
+                            ? "bg-blue-100 text-blue-600 font-semibold"
+                            : "text-gray-700 hover:bg-gray-100"
                             }`}
                     >
                         <span className="mr-3">{item.icon}</span>
