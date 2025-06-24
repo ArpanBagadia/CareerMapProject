@@ -4,14 +4,16 @@ import { useAuth } from "../context/AuthContext";
 const Navbar = () => {
   const { user, logout } = useAuth();
 
-  // Safe check before accessing user.user.id
+  // Store tutorId in localStorage if available
   if (user && user.user && user.user.id) {
     localStorage.setItem("tutorId", user.user.id);
   }
 
+  const isStudent = user?.user?.role === "student";
+
   return (
     <nav className="flex items-center justify-between px-8 py-4 bg-[#e9fbff] border-b">
-      {/* Logo Section */}
+      {/* Logo */}
       <Link to="/" className="flex items-center space-x-2">
         <img
           src="/image.png"
@@ -25,6 +27,15 @@ const Navbar = () => {
       <div className="flex items-center space-x-4">
         {user ? (
           <>
+            {/* Show enrolled link only for students */}
+            {isStudent && (
+              <Link to="/student/enrolled">
+                <button className="text-sm text-blue-600 hover:underline hover:text-blue-800 transition">
+                  My Courses
+                </button>
+              </Link>
+            )}
+
             <div className="flex items-center space-x-2">
               <img
                 src={user.user.imageUrl}
@@ -36,6 +47,7 @@ const Navbar = () => {
                 {user.user.name}
               </span>
             </div>
+
             <button
               onClick={logout}
               className="px-4 py-2 rounded-full bg-red-500 text-white text-sm hover:bg-red-600 transition"

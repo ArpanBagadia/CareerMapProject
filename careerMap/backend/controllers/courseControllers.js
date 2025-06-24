@@ -140,6 +140,7 @@ exports.getCourseById = async (req, res) => {
         if (!course) {
             return res.status(404).json({ success: false, msg: "Course not found" });
         }
+        console.log(course)
         res.status(200).json({ success: true, course })
     }
     catch (error) {

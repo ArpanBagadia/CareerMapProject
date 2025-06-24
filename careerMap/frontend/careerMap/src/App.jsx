@@ -15,7 +15,7 @@ import CourseDetails from "./pages/student/CourseDetails"
 import StudentCourses from "./pages/student/StudentCourses";
 import TutorEnrollments from "./pages/tutor/TutorEnrollments";
 import Success from "./pages/Success";
-
+import CoursePlayer from "./pages/student/CoursePlayer";
 
 function App() {
   return (
@@ -27,6 +27,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/select-role" element={<SelectRole />} />
         <Route path="/success" element={<Success />} />
+        <Route path="/student/player/:courseId" element={<CoursePlayer />} />
         <Route
           path="/student/dashboard"
           element={<ProtectedRoute role="student"><StudentDashboard /></ProtectedRoute>}

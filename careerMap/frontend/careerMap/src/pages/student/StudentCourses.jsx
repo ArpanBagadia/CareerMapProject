@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const StudentCourses = () => {
     const { user } = useAuth();
@@ -20,18 +21,20 @@ const StudentCourses = () => {
     }, [user]);
 
     return (
-        <div className="p-6">
+        <div className="min-h-screen bg-[#e9fbff] p-6">
             <h2 className="text-2xl font-bold mb-4">My Enrolled Courses</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                 {enrollments.map((enroll) => (
-                    <div key={enroll._id} className="bg-white p-4 shadow rounded">
-                        <img src={enroll.courseId.imageUrl} alt={enroll.courseId.title} className="h-40 w-full object-cover rounded mb-2" />
-                        <h3 className="text-lg font-semibold">{enroll.courseId.title}</h3>
-                        <p className="text-sm text-gray-500">{enroll.courseId.subtitle}</p>
-                        <p className="text-sm text-green-600 mt-1">
-                            Enrolled on: {new Date(enroll.enrolledAt).toLocaleDateString()}
-                        </p>
-                    </div>
+                    <Link to={`/student/player/${enroll.courseId._id}`}>
+                        <div className="bg-white p-4 shadow rounded cursor-pointer hover:shadow-md">
+                            <img src={enroll.courseId.imageUrl} alt={enroll.courseId.title} className="h-40 w-full object-cover rounded mb-2" />
+                            <h3 className="text-lg font-semibold">{enroll.courseId.title}</h3>
+                            <p className="text-sm text-gray-500">{enroll.courseId.subtitle}</p>
+                            <p className="text-sm text-green-600 mt-1">
+                                Enrolled on: {new Date(enroll.enrolledAt).toLocaleDateString()}
+                            </p>
+                        </div>
+                    </Link>
                 ))}
             </div>
         </div>
