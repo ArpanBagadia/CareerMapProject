@@ -1,4 +1,5 @@
 const Course = require('../models/Course')
+const Enrollment = require('../models/Enrollment')
 
 exports.courseUpload = async (req, res) => {
     try {
@@ -165,3 +166,9 @@ exports.updateCourseStatus = async (req, res) => {
         res.status(500).json({ success: false, msg: "Update failed" });
     }
 }
+
+exports.getCoursesByTutor = async (req, res) => {
+    const courses = await Course.find({ tutorId: req.params.tutorId });
+    const enrollment = await Enrollment.find({ tutorId: req.params.tutorId }).populate('courseId');
+    res.json({ courses, enrollment });
+};

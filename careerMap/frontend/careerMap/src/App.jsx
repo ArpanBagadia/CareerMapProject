@@ -22,7 +22,7 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Hero />} />
+        <Route path="/" element={<ProtectedRoute role="student"><Hero /></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/select-role" element={<SelectRole />} />

@@ -41,32 +41,8 @@ const CourseDetail = () => {
         }
     };
 
-    const calculateTotalDuration = (structure) => {
-        let totalMinutes = 0;
-
-        structure.forEach(mod => {
-            const durationStr = mod.duration.toLowerCase();
-            const hoursMatch = durationStr.match(/(\d+)\s*hour/);
-            const minsMatch = durationStr.match(/(\d+)\s*minute/);
-
-            const hours = hoursMatch ? parseInt(hoursMatch[1]) : 0;
-            const minutes = minsMatch ? parseInt(minsMatch[1]) : 0;
-
-            totalMinutes += hours * 60 + minutes;
-        });
-
-        const finalHours = Math.floor(totalMinutes / 60);
-        const finalMinutes = totalMinutes % 60;
-
-        return `${finalHours} hours${finalMinutes > 0 ? `, ${finalMinutes} minutes` : ''}`;
-    };
 
     if (!course) return <p className="text-center mt-10">Loading...</p>;
-
-    const totalDuration = course?.structure ? calculateTotalDuration(course.structure) : "";
-    const totalLectures = course?.structure
-        ? course.structure.reduce((sum, mod) => sum + (parseInt(mod.lectures) || 0), 0)
-        : 0;
 
     return (
         <div className="p-6 min-h-screen bg-gradient-to-b from-[#e9f1fc] to-white">
@@ -78,7 +54,6 @@ const CourseDetail = () => {
                     <p className="text-sm text-gray-500 mt-1">
                         Course by <span className="text-blue-600 font-semibold">GreatStack</span>
                     </p>
-                    <p className="mt-2 text-yellow-600">⭐⭐⭐⭐⭐ (1 rating)</p>
                     <p className="text-sm text-gray-500">2 students enrolled</p>
 
                     <h3 className="text-xl font-semibold mt-6">Course Structure</h3>
@@ -96,7 +71,10 @@ const CourseDetail = () => {
                         ))}
 
                     <h3 className="text-xl font-semibold mt-6">Course Description</h3>
-                    <p className="text-gray-700">{course.description}</p>
+                    <div
+                        className="prose max-w-none text-gray-700"
+                        dangerouslySetInnerHTML={{ __html: course.description }}
+                    />
                 </div>
 
                 {/* Right Sidebar */}
@@ -105,8 +83,6 @@ const CourseDetail = () => {
                     <p className="text-red-500 text-sm mb-1">⏳ 5 days left at this price!</p>
                     <div className="text-2xl font-bold text-green-600">
                         ₹{course.price}{' '}
-                        <span className="line-through text-gray-400 text-base">₹{course.originalPrice}</span>{' '}
-                        <span className="text-red-600 text-base">20% off</span>
                     </div>
                     <p className="mt-2">
                         ⭐ {course.rating || 5} | 🕒 {course.createdAt} | 📚 {course.level} lessons
@@ -118,16 +94,7 @@ const CourseDetail = () => {
                         Enroll Now
                     </button> */}
 
-                    <CheckoutButton  course={course}/>
-                    <div className="mt-6">
-                        <h4 className="font-semibold text-md mb-1">What's in the course?</h4>
-                        <ul className="text-sm text-gray-700 list-disc list-inside">
-                            <li>Lifetime access with free updates</li>
-                            <li>Hands-on project guidance</li>
-                            <li>Downloadable resources</li>
-                            <li>Quizzes and certificate</li>
-                        </ul>
-                    </div>
+                    <CheckoutButton course={course} />
                 </div>
             </div>
         </div>

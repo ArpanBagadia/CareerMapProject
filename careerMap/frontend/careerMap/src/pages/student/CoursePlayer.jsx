@@ -25,7 +25,7 @@ const CoursePlayer = () => {
 
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col md:flex-row">
-      
+
       {/* Left: Course Info */}
       <div className="w-full md:w-1/2 p-6 space-y-6 border-r border-gray-300">
         <h1 className="text-3xl font-bold text-blue-800">{course.title}</h1>
@@ -38,7 +38,10 @@ const CoursePlayer = () => {
           <div className="bg-gray-100 rounded shadow divide-y divide-gray-200">
             <details className="p-4 cursor-pointer">
               <summary className="font-medium">Description</summary>
-              <p className="mt-2 text-sm text-gray-600">{course.description}</p>
+              <div
+                className="prose max-w-none text-gray-700"
+                dangerouslySetInnerHTML={{ __html: course.description }}
+              />
             </details>
           </div>
         </div>
@@ -52,7 +55,7 @@ const CoursePlayer = () => {
           controls
           className="rounded-xl shadow-xl w-full max-h-[75vh] object-contain"
         />
-        
+
         <div className="mt-4">
           <label className="text-black text-sm mr-2">Playback Speed:</label>
           <select

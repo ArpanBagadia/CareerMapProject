@@ -11,7 +11,10 @@ const TutorEnrollments = () => {
         if (!user || !user.user?.id) return;
 
         axios.get(`http://localhost:5000/api/tutor-enrollments/${user.user.id}`)
-            .then(res => setEnrollments(res.data))
+            .then(res => {
+                setEnrollments(res.data)
+                console.log(enrollments)
+            })
             .catch(err => console.error("Error fetching tutor enrollments:", err));
     }, [user]);
 

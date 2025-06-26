@@ -1,8 +1,8 @@
 const express = require("express");
 const { googleLogin, setRole, signup, login } = require("../controllers/authController");
-const { courseUpload, getTutorCourses, updateCourse, deleteCourse, getAllCourses, getCourseById, updateCourseStatus } = require('../controllers/courseControllers')
-const { enroll, studentEnrollments, tutorEmrollments,getQualifiedStudents } = require('../controllers/enrollment')
-const { createCheckoutSession,enrollAfterPayment } = require('../controllers/paymentController')
+const { courseUpload, getTutorCourses, updateCourse, deleteCourse, getAllCourses, getCourseById, updateCourseStatus, getCoursesByTutor } = require('../controllers/courseControllers')
+const { enroll, studentEnrollments, tutorEmrollments, getQualifiedStudents } = require('../controllers/enrollment')
+const { createCheckoutSession, enrollAfterPayment } = require('../controllers/paymentController')
 const upload = require('../utils/storage')
 const router = express.Router();
 
@@ -26,6 +26,7 @@ router.get("/get-course/:id", getCourseById);
 router.post("/enroll", enroll);
 router.get("/student-enrollments/:studentId", studentEnrollments)
 router.get("/tutor-enrollments/:tutorId", tutorEmrollments)
+router.get("/by-tutor/:tutorId",getCoursesByTutor)
 
 //payment
 
