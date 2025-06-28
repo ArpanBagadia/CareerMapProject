@@ -52,7 +52,7 @@ const CourseDetail = () => {
                     <h2 className="text-3xl font-bold">{course.title}</h2>
                     <p className="text-gray-600">{course.subtitle}</p>
                     <p className="text-sm text-gray-500 mt-1">
-                        Course by <span className="text-blue-600 font-semibold">GreatStack</span>
+                        Course by <span className="text-blue-600 font-semibold">{course.tutorId?.name || 'Unknown'}</span>
                     </p>
                     <p className="text-sm text-gray-500">2 students enrolled</p>
 

@@ -26,7 +26,7 @@ router.get("/get-course/:id", getCourseById);
 router.post("/enroll", enroll);
 router.get("/student-enrollments/:studentId", studentEnrollments)
 router.get("/tutor-enrollments/:tutorId", tutorEmrollments)
-router.get("/by-tutor/:tutorId",getCoursesByTutor)
+router.get("/by-tutor/:tutorId", getCoursesByTutor)
 
 //payment
 

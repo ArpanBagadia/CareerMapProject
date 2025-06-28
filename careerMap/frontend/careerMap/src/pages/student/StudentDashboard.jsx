@@ -20,10 +20,14 @@ const StudentDashboard = () => {
     navigate(`student/course/${courseId}`);
   };
 
+  const handleShowAllCourses = () => {
+    navigate("/all-courses");
+  };
+
   return (
     <div className="p-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-        {courses.map(course => (
+        {courses.slice(0, 3).map(course => (
           <div
             key={course._id}
             onClick={() => handleCardClick(course._id)}
@@ -36,11 +40,21 @@ const StudentDashboard = () => {
             />
             <div className="p-4 text-left">
               <h3 className="text-lg font-semibold text-gray-800">{course.title}</h3>
-              <p className="text-sm text-gray-500">GreatStack</p>
+              <p className="text-sm text-gray-500">
+                Course by {course.tutorId.name || 'Unknown'}
+              </p>
               <p className="text-md font-bold text-gray-800 mt-1">₹{course.price}</p>
             </div>
           </div>
         ))}
+      </div>
+      <div className="flex justify-center mt-12">
+        <button
+          onClick={handleShowAllCourses}
+          className="px-6 py-2 border border-gray-300 rounded shadow-sm text-gray-700 hover:bg-gray-100 transition"
+        >
+          Show all courses
+        </button>
       </div>
     </div>
   );

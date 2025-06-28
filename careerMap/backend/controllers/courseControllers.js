@@ -126,7 +126,7 @@ exports.deleteCourse = async (req, res) => {
 
 exports.getAllCourses = async (req, res) => {
     try {
-        const courses = await Course.find({ status: true })
+        const courses = await Course.find({ status: true }).populate("tutorId", "name");
         res.status(200).json({ success: true, courses });
     } catch (error) {
         console.error(error);
@@ -137,7 +137,7 @@ exports.getAllCourses = async (req, res) => {
 exports.getCourseById = async (req, res) => {
     const { id } = req.params;
     try {
-        const course = await Course.findById(id)
+        const course = await Course.findById(id).populate("tutorId", "name");
         if (!course) {
             return res.status(404).json({ success: false, msg: "Course not found" });
         }
