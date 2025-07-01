@@ -27,27 +27,45 @@ const StudentDashboard = () => {
   return (
     <div className="p-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-        {courses.slice(0, 3).map(course => (
-          <div
-            key={course._id}
-            onClick={() => handleCardClick(course._id)}
-            className="bg-white rounded-lg shadow-2xl hover:shadow-lg cursor-pointer transition-all duration-300"
-          >
-            <img
-              src={course.imageUrl}
-              alt={course.title}
-              className="w-full h-44 object-cover rounded-t-lg"
-            />
-            <div className="p-4 text-left">
-              <h3 className="text-lg font-semibold text-gray-800">{course.title}</h3>
-              <p className="text-sm text-gray-500">
-                Course by {course.tutorId.name || 'Unknown'}
-              </p>
-              <p className="text-md font-bold text-gray-800 mt-1">₹{course.price}</p>
+        {courses.slice(0, 3).map(course => {
+          const averageRating = course.averageRating || 0;
+
+          return (
+            <div
+              key={course._id}
+              onClick={() => handleCardClick(course._id)}
+              className="bg-white rounded-lg shadow-2xl hover:shadow-lg cursor-pointer transition-all duration-300"
+            >
+              <img
+                src={course.imageUrl}
+                alt={course.title}
+                className="w-full h-44 object-cover rounded-t-lg"
+              />
+              <div className="p-4 text-left">
+                <h3 className="text-lg font-semibold text-gray-800">{course.title}</h3>
+                <p className="text-sm text-gray-500">
+                  Course by {course.tutorId?.name || 'Unknown'}
+                </p>
+                <p className="text-md font-bold text-gray-800 mt-1">₹{course.price}</p>
+
+                {/* Rating Section */}
+                <div className="flex items-center mt-2">
+                  <div className="text-yellow-400 text-sm mr-2">
+                    {Array(5).fill(0).map((_, i) => (
+                      <span key={i}>{i < Math.round(averageRating) ? '★' : '☆'}</span>
+                    ))}
+                  </div>
+                  <span className="text-sm text-gray-600">
+                    ({averageRating.toFixed(1)})
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
+
+      {/* Show All Courses Button */}
       <div className="flex justify-center mt-12">
         <button
           onClick={handleShowAllCourses}

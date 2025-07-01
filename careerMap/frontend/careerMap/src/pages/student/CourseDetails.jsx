@@ -85,7 +85,7 @@ const CourseDetail = () => {
                         ₹{course.price}{' '}
                     </div>
                     <p className="mt-2">
-                        ⭐ {course.rating || 5} | 🕒 {course.createdAt} | 📚 {course.level} lessons
+                        ⭐ {course.averageRating} | 🕒 {course.createdAt} | 📚 {course.level} lessons
                     </p>
                     {/* <button
                         onClick={handleEnroll}

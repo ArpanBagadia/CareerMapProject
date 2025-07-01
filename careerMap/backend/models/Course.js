@@ -45,6 +45,23 @@ const courseSchema = new mongoose.Schema({
     status: {
         type: Boolean,
         default: true
+    },
+    ratings: [
+        {
+            studentId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User',
+            },
+            rating: {
+                type: Number,
+                min: 1,
+                max: 5,
+            }
+        }
+    ],
+    averageRating: {
+        type: Number,
+        default: 0
     }
 })
 

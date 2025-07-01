@@ -141,7 +141,6 @@ exports.getCourseById = async (req, res) => {
         if (!course) {
             return res.status(404).json({ success: false, msg: "Course not found" });
         }
-        console.log(course)
         res.status(200).json({ success: true, course })
     }
     catch (error) {
@@ -171,4 +170,29 @@ exports.getCoursesByTutor = async (req, res) => {
     const courses = await Course.find({ tutorId: req.params.tutorId });
     const enrollment = await Enrollment.find({ tutorId: req.params.tutorId }).populate('courseId');
     res.json({ courses, enrollment });
+};
+
+exports.rateCourse = async (req, res) => {
+    const { courseId } = req.params;
+    const { userId, rating } = req.body;
+    try {
+        const course = await Course.findById(courseId);
+        if (!course) return res.status(404).json({ msg: "Course not found" });
+        const existing = course.ratings.find(r => r.userId === userId);
+        console.log(existing)
+        if (existing) {
+            existing.rating = rating; 
+        } else {
+            course.ratings.push({ userId, rating });
+        }
+        const total = course.ratings.reduce((acc, r) => acc + r.rating, 0);
+        course.averageRating = total / course.ratings.length;
+
+        await course.save();
+
+        res.status(200).json({ msg: "Rating submitted", averageRating: course.averageRating });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ msg: "Server error" });
+    }
 };
