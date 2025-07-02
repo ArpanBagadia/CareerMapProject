@@ -17,6 +17,8 @@ function TutorCourse() {
 
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
+  const [loading, setLoading] = useState(false);
+
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -38,6 +40,8 @@ function TutorCourse() {
     }
 
     try {
+      setLoading(true); // Start loading
+
       const tutorId = localStorage.getItem('tutorId');
       const data = new FormData();
       data.append('tutorId', tutorId);
@@ -51,15 +55,12 @@ function TutorCourse() {
       data.append('video', video);
 
       const res = await axios.post('http://localhost:5000/api/upload-course', data, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
 
       toast.success("Course added successfully!");
       console.log(res.data);
 
-      // ✅ Reset form fields
       setFormData({
         title: '',
         subtitle: '',
@@ -73,15 +74,25 @@ function TutorCourse() {
       document.getElementById('imageInput').value = '';
       document.getElementById('videoInput').value = '';
     } catch (err) {
-      toast.error("Error uploading course.");
+      toast.error("❌ Error uploading course.");
       console.error(err);
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
+
 
   return (
     <div className="flex">
       <Sidebar />
       <main className="flex-1 p-6 bg-white min-h-screen">
+        {
+          loading && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+              <div className="text-white text-xl font-semibold">Uploading Course...</div>
+            </div>
+          )
+        }
         <h1 className="text-2xl font-bold mb-6">Add New Course</h1>
         <form onSubmit={handleSubmit} className="space-y-4 max-w-3xl">
           <div>

@@ -1,4 +1,6 @@
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import SelectRole from "./pages/auth/SelectRole";
@@ -21,6 +23,7 @@ import AllCourses from "./pages/student/AllCourses";
 function App() {
   return (
     <>
+      <ToastContainer position="top-right" autoClose={3000} />
       <Navbar />
       <Routes>
         <Route path="/" element={<ProtectedRoute role="student"><Hero /></ProtectedRoute>} />

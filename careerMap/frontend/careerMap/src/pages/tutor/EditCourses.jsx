@@ -23,6 +23,8 @@ function EditCourses() {
   const [video, setVideo] = useState(null);
   const [previewImage, setPreviewImage] = useState('');
   const [previewVideo, setPreviewVideo] = useState('');
+  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -61,6 +63,8 @@ function EditCourses() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true); 
+
       const tutorId = localStorage.getItem('tutorId');
       const data = new FormData();
       data.append('tutorId', tutorId);
@@ -82,17 +86,27 @@ function EditCourses() {
     } catch (err) {
       toast.error("Error updating course.");
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
+
 
   return (
     <div className="flex">
       <Sidebar />
+      {loading && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white px-6 py-4 rounded-lg shadow-lg text-center">
+            <div className="loader mb-3 mx-auto border-t-4 border-blue-500 border-solid rounded-full w-12 h-12 animate-spin"></div>
+            <p className="text-gray-700 font-medium">Updating Course...</p>
+          </div>
+        </div>
+      )}
       <main className="flex-1 p-6 bg-white min-h-screen">
         <h1 className="text-2xl font-bold mb-6">Edit Course</h1>
         <form onSubmit={handleUpdate} className="space-y-4 max-w-3xl">
 
-          {/* Title */}
           <div>
             <label className="block text-gray-700 font-medium">Title</label>
             <input
@@ -105,7 +119,6 @@ function EditCourses() {
             />
           </div>
 
-          {/* Subtitle */}
           <div>
             <label className="block text-gray-700 font-medium">Subtitle</label>
             <input
@@ -118,7 +131,6 @@ function EditCourses() {
             />
           </div>
 
-          {/* Category & Level */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-gray-700 font-medium">Category</label>
@@ -148,7 +160,6 @@ function EditCourses() {
             </div>
           </div>
 
-          {/* Price */}
           <div>
             <label className="block text-gray-700 font-medium">Price (₹)</label>
             <input
@@ -161,7 +172,6 @@ function EditCourses() {
             />
           </div>
 
-          {/* Image */}
           <div>
             <label className="block text-gray-700 font-medium">Course Image</label>
             {previewImage && <img src={previewImage} alt="Current" className="w-40 h-24 object-cover mb-2" />}
@@ -173,7 +183,6 @@ function EditCourses() {
             />
           </div>
 
-          {/* Video */}
           <div>
             <label className="block text-gray-700 font-medium">Course Video</label>
             {previewVideo && (
@@ -189,7 +198,6 @@ function EditCourses() {
             />
           </div>
 
-          {/* Description */}
           <div>
             <label className="block text-gray-700 font-medium">Description</label>
             <ReactQuill
