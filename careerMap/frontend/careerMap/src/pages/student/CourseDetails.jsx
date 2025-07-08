@@ -30,6 +30,7 @@ const CourseDetail = () => {
                 courseId: course?._id,
                 tutorId: course?.tutorId, // make sure `course.tutorId` is available
             });
+              console.log(course.tutorId)
             if (!user || !course || !course._id || !course.tutorId) {
                 alert("Missing required data to enroll. Please try again later.");
                 return;

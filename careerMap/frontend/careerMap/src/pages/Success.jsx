@@ -16,11 +16,10 @@ const Success = () => {
             if (!user || !sessionId) return;
 
             try {
-                const res = await axios.post("http://localhost:5000/api/enroll-after-payment", {
+                await axios.post("http://localhost:5000/api/enroll-after-payment", {
                     sessionId,
                     studentId: user.user.id,
                 });
-
                 alert("Enrollment successful!");
             } catch (err) {
                 console.error(err);

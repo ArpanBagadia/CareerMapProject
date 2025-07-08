@@ -9,6 +9,7 @@ const CheckoutButton = ({ course }) => {
     const handleCheckout = async () => {
         const stripe = await stripePromise;
         const res = await axios.post('http://localhost:5000/api/create-checkout-session', { course });
+        console.log(res)
 
         await stripe.redirectToCheckout({ sessionId: res.data.id });
     };

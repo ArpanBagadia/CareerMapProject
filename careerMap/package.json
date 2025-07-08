@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@stripe/stripe-js": "^7.4.0",
     "cloudinary": "^1.41.3",
     "multer": "^2.0.1",
     "multer-storage-cloudinary": "^4.0.0"
