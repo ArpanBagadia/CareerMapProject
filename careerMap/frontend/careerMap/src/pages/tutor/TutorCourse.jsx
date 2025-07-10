@@ -88,8 +88,11 @@ function TutorCourse() {
       <main className="flex-1 p-6 bg-white min-h-screen">
         {
           loading && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-              <div className="text-white text-xl font-semibold">Uploading Course...</div>
+            <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+              <div className="bg-white px-6 py-4 rounded-lg shadow-lg text-center">
+                <div className="loader mb-3 mx-auto border-t-4 border-blue-500 border-solid rounded-full w-12 h-12 animate-spin"></div>
+                <p className="text-gray-700 font-medium">Adding Course...</p>
+              </div>
             </div>
           )
         }

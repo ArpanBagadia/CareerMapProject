@@ -65,7 +65,7 @@ exports.updateCourse = async (req, res) => {
     } = req.body;
 
     try {
-        const existingCourse = await Course.findOne({ tutorId });
+        const existingCourse = await Course.findOne({ _id: id, tutorId: tutorId });
         console.log(id)
         console.log(existingCourse.tutorId)
         if (!existingCourse) {
@@ -181,7 +181,7 @@ exports.rateCourse = async (req, res) => {
         const existing = course.ratings.find(r => r.userId === userId);
         console.log(existing)
         if (existing) {
-            existing.rating = rating; 
+            existing.rating = rating;
         } else {
             course.ratings.push({ userId, rating });
         }

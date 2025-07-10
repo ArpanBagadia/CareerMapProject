@@ -27,7 +27,7 @@ exports.createCheckoutSession = async (req, res) => {
       cancel_url: 'http://localhost:5173/cancel',
       metadata: {
                 courseId: course._id.toString(),
-                tutorId: course.tutorId.toString()
+                tutorId: course._id.toString()
             },
     });
 
@@ -68,7 +68,6 @@ exports.enrollAfterPayment = async (req, res) => {
         });
 
         await enroll.save();
-        console.log(enroll)
         res.status(201).json({ msg: "Enrollment saved after payment" });
     } catch (err) {
         console.error("Enroll after payment error:", err);

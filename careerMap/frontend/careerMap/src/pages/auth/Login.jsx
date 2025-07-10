@@ -37,7 +37,14 @@ const Login = () => {
 
       login(res.data);
       if (!res.data.user.role) navigate("/select-role");
-      else navigate(`/${res.data.user.role}/dashboard`);
+      else {
+        if (res.data.user.role === "student") {
+          navigate(`/`)
+        }
+        else {
+          navigate(`/${res.data.user.role}/dashboard`);
+        }
+      }
     } catch (err) {
       console.error("Google login error", err);
     }
